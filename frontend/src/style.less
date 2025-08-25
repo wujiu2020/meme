@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #100c15;
+  color: #ffffff;
+}
+
+#app {
+  height: 100vh;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// 自定义滚动条
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// 覆盖antd的一些默认样式
+.ant-layout {
+  background: #0a0a0a !important;
+}
+
+.ant-card {
+  background: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  color: #ffffff !important;
+}
+
+.ant-card-body {
+  padding: 16px !important;
+}
+
+.ant-btn-primary {
+  background: #52c41a !important;
+  border-color: #52c41a !important;
+  
+  &:hover {
+    background: #73d13d !important;
+    border-color: #73d13d !important;
+  }
+}
+
+.ant-btn-default {
+  background: #ffffff !important;
+  border-color: #d9d9d9 !important;
+  color: #000000 !important;
+  
+  &:hover {
+    background: #f5f5f5 !important;
+    border-color: #40a9ff !important;
+    color: #1890ff !important;
+  }
+}
