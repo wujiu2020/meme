@@ -86,18 +86,14 @@ export default {
 }
 
 .token-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #333;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  
-  .avatar-emoji {
-    font-size: 16px;
-  }
+  background: #2a2a2a;
+  border-radius: 8px;
 }
 
 .token-info {
@@ -147,8 +143,8 @@ export default {
 }
 
 .percentage-inner {
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   background-color: #0E0E0E;
   border-radius: 6px;
   display: flex;
@@ -210,15 +206,17 @@ export default {
     padding: 10px;
   }
   
-  .token-avatar {
-    width: 28px;
-    height: 28px;
-    
-    .avatar-emoji {
-      font-size: 14px;
-    }
-  }
-  
+.token-avatar {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a2a2a;
+  border-radius: 8px;
+}
+
   .token-info {
     .token-name {
       font-size: 13px;

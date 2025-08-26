@@ -122,8 +122,8 @@ export default {
 }
 
 .percentage-inner {
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   background: #0E0E0E;
   border-radius: 6px;
   display: flex;

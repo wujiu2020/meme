@@ -1,6 +1,46 @@
 <template>
   <div class="token-lists">
-    <div class="lists-container">
+    <!-- 标签切换 (移动端) -->
+    <div v-if="isMobile" class="tab-container">
+      <div class="tab-buttons">
+          <div 
+            class="tab-button" 
+            :class="{ active: activeTab === 'new' }"
+            @click="setActiveTab('new')"
+          >
+            新创建
+          </div>
+          <div 
+            class="tab-button" 
+            :class="{ active: activeTab === 'rising' }"
+            @click="setActiveTab('rising')"
+          >
+            高升
+          </div>
+          <div 
+            class="tab-button" 
+            :class="{ active: activeTab === 'launched' }"
+            @click="setActiveTab('launched')"
+          >
+            已发射
+          </div>
+        </div>
+      
+      <!-- 单列显示 -->
+      <div class="mobile-content">
+        <div class="token-list">
+          <component 
+            :is="getCurrentComponent()"
+            v-for="token in getCurrentTokens()" 
+            :key="token.id"
+            :token="token"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <!-- 三列布局 (桌面端) -->
+    <div v-else class="lists-container">
       <!-- 新创建 -->
       <div class="token-column">
         <div class="column-header">
@@ -58,6 +98,9 @@ export default {
   },
   data() {
     return {
+      activeTab: 'new', // 'new', 'rising', 'launched'
+      isMobile: false,
+      windowWidth: 0,
       newTokens: [
         {
           id: 1,
@@ -318,6 +361,40 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    this.checkWindowSize()
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  },
+  methods: {
+    handleResize() {
+      this.checkWindowSize()
+    },
+    checkWindowSize() {
+      this.windowWidth = window.innerWidth
+      this.isMobile = window.innerWidth <= 1024
+    },
+    setActiveTab(tab) {
+      this.activeTab = tab
+    },
+    getCurrentTokens() {
+      switch(this.activeTab) {
+        case 'new':
+          return this.newTokens
+        case 'rising':
+          return this.risingTokens
+        case 'launched':
+          return this.launchedTokens
+        default:
+          return this.newTokens
+      }
+    },
+    getCurrentComponent() {
+      return this.activeTab === 'launched' ? 'TokenCardMemed' : 'TokenCardWithProgress'
+    }
   }
 }
 </script>
@@ -325,6 +402,63 @@ export default {
 <style lang="less" scoped>
 .token-lists {
   width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 标签切换样式 */
+.tab-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  user-select: none;
+  position: relative;
+  
+  &:hover {
+    color: #52c41a;
+  }
+  
+  &.active {
+    color: #52c41a;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #52c41a;
+    }
+  }
+}
+
+.mobile-content {
+  flex: 1;
+  overflow: hidden;
 }
 
 .lists-container {
@@ -334,15 +468,21 @@ export default {
   align-items: start;
   width: 100%;
   max-width: none;
+  flex: 1;
+  height: 100%;
 }
 
 .token-column {
   border-radius: 8px;
   overflow: hidden;
+  border: none;
+  background: transparent;
 }
 
 .column-header {
   padding: 15px 20px;
+  border: none;
+  background: transparent;
 }
 
 .column-title {
@@ -355,7 +495,7 @@ export default {
 
 .token-list {
   padding: 10px;
-  max-height: 80vh;
+  max-height: calc(100vh - 250px);
   overflow-y: auto;
   
   &::-webkit-scrollbar {
@@ -373,18 +513,23 @@ export default {
 
 @media (max-width: 1024px) {
   .lists-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
   
   .token-list {
-    max-height: 60vh;
+    max-height: calc(100vh - 300px);
   }
 }
 
-@media (max-width: 768px) {
-  .token-list {
-    max-height: 50vh;
+@media (max-width: 1024px) {
+  .lists-container {
+    display: none;
+  }
+  
+  .mobile-content .token-list {
+    max-height: calc(100vh - 200px);
+    padding: 0 16px;
   }
 }
 </style>
