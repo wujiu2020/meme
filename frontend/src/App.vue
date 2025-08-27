@@ -1,24 +1,12 @@
 <template>
   <div id="app">
-    <Header />
-    <main class="main-content">
-      <div class="container">
-        <TokenLists />
-      </div>
-    </main>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import TokenLists from './components/TokenLists.vue'
-
 export default {
-  name: 'App',
-  components: {
-    Header,
-    TokenLists
-  }
+  name: 'App'
 }
 </script>
 

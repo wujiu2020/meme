@@ -1,12 +1,12 @@
 <template>
-  <div class="token-card">
+  <div class="token-card" @click="navigateToDetail">
     <div class="token-header">
       <div class="token-info">
-        <div class="token-avatar">{{ token.avatar }}</div>
-        <div class="token-name-symbol">
-          <div class="token-name">{{ token.name }}</div>
-          <div class="token-symbol">{{ token.symbol }}</div>
-        </div>
+      <div class="token-avatar">{{ token.avatar }}</div>
+      <div class="token-name-symbol">
+        <div class="token-name">{{ token.name }}</div>
+        <div class="token-symbol">{{ token.symbol }}</div>
+      </div>
       </div>
       <div class="token-percentage">
         <div class="percentage-display">
@@ -32,6 +32,12 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    navigateToDetail() {
+      const tokenData = encodeURIComponent(JSON.stringify(this.token))
+      this.$router.push(`/token/${tokenData}`)
+    }
   }
 }
 </script>
@@ -51,6 +57,8 @@ export default {
     background: #1a1a1a;
     transform: translateY(-2px);
   }
+  
+  cursor: pointer;
 }
 
 .token-header {

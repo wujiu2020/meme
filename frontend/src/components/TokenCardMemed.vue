@@ -48,7 +48,8 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log('Token clicked:', this.token.name)
+      const tokenData = encodeURIComponent(JSON.stringify(this.token))
+      this.$router.push(`/token/${tokenData}`)
     },
     isPositiveChange(change) {
       return change && change.startsWith('+')
@@ -86,7 +87,6 @@ export default {
 }
 
 .token-avatar {
-  font-size: 24px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -94,6 +94,11 @@ export default {
   justify-content: center;
   background: #2a2a2a;
   border-radius: 8px;
+  
+  .avatar-emoji {
+    font-size: 20px;
+    line-height: 1;
+  }
 }
 
 .token-info {
@@ -203,11 +208,10 @@ export default {
 
 @media (max-width: 768px) {
   .token-card {
-    padding: 10px;
+    padding: 16px;
   }
   
 .token-avatar {
-  font-size: 24px;
   width: 40px;
   height: 40px;
   display: flex;
